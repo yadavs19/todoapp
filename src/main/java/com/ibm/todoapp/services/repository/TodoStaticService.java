@@ -65,5 +65,11 @@ public class TodoStaticService implements ITodoService {
 	private int findMaxTodoId() {
 		return 3;
 	}
+
+	@Override
+	public List<Todo> getByTitle(String title) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

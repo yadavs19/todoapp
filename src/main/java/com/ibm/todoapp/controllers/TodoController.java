@@ -53,6 +53,15 @@ public class TodoController {
 			return todo;
 	}
 	
+	@GetMapping("/{title}")
+	public List<Todo> getByTodoTitle(@PathVariable String title){
+		var todo = todoSvc.getByTitle(title);
+		if(todo == null)
+			throw new TodoNotFoundException("Todo Not Found");
+		else
+			return todo;
+	}
+	
 	@PostMapping()
 	public ResponseEntity<Todo> createTodo(@Valid @RequestBody Todo todo) {	// modelbinding ? spring validation framework 
 		

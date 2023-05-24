@@ -11,6 +11,8 @@ public interface ITodoService {
 	
 	public Todo getById(int id);
 	
+	public List<Todo> getByTitle(String title);
+	
 	public Todo addTodo(Todo todo);
 	
 	public Todo updateTodo(int id, Todo todo);

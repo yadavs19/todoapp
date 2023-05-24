@@ -60,4 +60,11 @@ public class TodoDBService implements ITodoService{
 		return null;
 	}
 
+	@Override
+	public List<Todo> getByTitle(String title) {
+		// TODO Auto-generated method stub
+				var todos = todoDbRepo.findByTitle(title);
+				return todos;
+	}
+
 }
