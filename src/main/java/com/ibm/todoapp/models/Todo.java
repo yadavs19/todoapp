@@ -3,9 +3,21 @@ package com.ibm.todoapp.models;
 import java.util.Date;
 import java.util.Objects;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+import org.springframework.stereotype.Component;
+
+import nonapi.io.github.classgraph.json.Id;
+
+@Component
 public class Todo {
+	@Id
 	private int id;
+	// spring validation framework 
+	@NotBlank(message = "Title is required.")
 	private String title;
+	@Size(min=5, max=20, message = "length should be morethan 5 and less than 20 characters")
 	private String description;
 	private boolean status;
 	private Date targetDate;
