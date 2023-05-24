@@ -7,9 +7,10 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.ibm.todoapp.models.Todo;
+import com.ibm.todoapp.services.ITodoService;
 
-@Service
-public class TodoStaticService {
+
+public class TodoStaticService implements ITodoService {
 
 	// static data data store
 	

@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ibm.todoapp.exceptions.TodoNotFoundException;
 import com.ibm.todoapp.models.Todo;
-import com.ibm.todoapp.services.repository.TodoStaticService;
+import com.ibm.todoapp.services.ITodoService;
 
 @RestController
 @RequestMapping("/api/v1/todos")
@@ -32,7 +32,7 @@ public class TodoController {
 	
 	private static final int Todo = 0;
 	@Autowired
-	TodoStaticService todoSvc;
+	ITodoService todoSvc;
 	
 	@GetMapping()
 	public List<Todo> getAllTodos(){
@@ -55,6 +55,7 @@ public class TodoController {
 	
 	@PostMapping()
 	public ResponseEntity<Todo> createTodo(@Valid @RequestBody Todo todo) {	// modelbinding ? spring validation framework 
+		
 		var newTodo = todoSvc.addTodo(todo);
 		return new ResponseEntity<Todo>(newTodo, HttpStatus.CREATED);
 	}

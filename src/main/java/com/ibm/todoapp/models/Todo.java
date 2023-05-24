@@ -3,24 +3,33 @@ package com.ibm.todoapp.models;
 import java.util.Date;
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
 
-import nonapi.io.github.classgraph.json.Id;
+ 
 
-@Component
+@Entity
 public class Todo {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	// spring validation framework 
 	@NotBlank(message = "Title is required.")
+	@Column(name = "task", nullable=false)
 	private String title;
 	@Size(min=5, max=20, message = "length should be morethan 5 and less than 20 characters")
 	private String description;
 	private boolean status;
 	private Date targetDate;
+	
 	public int getId() {
 		return id;
 	}
