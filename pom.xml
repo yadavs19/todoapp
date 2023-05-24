@@ -12,7 +12,7 @@
 	<artifactId>todoapp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>todoapp</name>
-	<description>Manage todo activity</description>
+	<description>Manage todos</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
