@@ -8,16 +8,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import org.springframework.stereotype.Component;
+import org.springframework.hateoas.RepresentationModel;
 
  
 
 @Entity
-public class Todo {
+public class Todo extends RepresentationModel<Todo> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;

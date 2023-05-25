@@ -7,6 +7,8 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -40,8 +42,19 @@ public class TodoController {
 		var todos = todoSvc.getAllTodos();
 		if(todos.size()==0)
 			throw new TodoNotFoundException("Todo Not Found");
-		else
+		else {
+			for(Todo todo: todos) {
+				int todoId = todo.getId();
+				Link selfLink = WebMvcLinkBuilder.linkTo(TodoController.class).slash(todoId).withRel("self");
+				todo.add(selfLink);
+				Link deleteLink = WebMvcLinkBuilder.linkTo(TodoController.class).slash(todoId).withRel("Delete");
+				todo.add(deleteLink);
+				Link updateLink = WebMvcLinkBuilder.linkTo(TodoController.class).slash(todoId).withRel("update");
+				todo.add(updateLink);
+			}
+			
 			return todos;
+		}
 	}
 	
 	@GetMapping("/{id}")
@@ -53,7 +66,7 @@ public class TodoController {
 			return todo;
 	}
 	
-	@GetMapping("/{title}")
+	@GetMapping("/title/{title}")
 	public List<Todo> getByTodoTitle(@PathVariable String title){
 		var todo = todoSvc.getByTitle(title);
 		if(todo == null)
