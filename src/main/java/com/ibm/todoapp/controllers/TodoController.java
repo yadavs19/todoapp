@@ -11,6 +11,7 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,6 +38,7 @@ public class TodoController {
 	ITodoService todoSvc;
 	
 	@GetMapping()
+	@PreAuthorize("hasRole('Admin')")
 	public List<Todo> getAllTodos(){
 		 
 		var todos = todoSvc.getAllTodos();
@@ -58,6 +60,7 @@ public class TodoController {
 	}
 	
 	@GetMapping("/{id}")
+	@PreAuthorize("hasRole('User')")
 	public Todo getByTodoId(@PathVariable int id){
 		var todo = todoSvc.getById(id);
 		if(todo == null)
@@ -67,6 +70,7 @@ public class TodoController {
 	}
 	
 	@GetMapping("/title/{title}")
+	@PreAuthorize("hasRole('Admin')")
 	public List<Todo> getByTodoTitle(@PathVariable String title){
 		var todo = todoSvc.getByTitle(title);
 		if(todo == null)
@@ -76,6 +80,7 @@ public class TodoController {
 	}
 	
 	@PostMapping()
+	@PreAuthorize("hasRole('Admin')")
 	public ResponseEntity<Todo> createTodo(@Valid @RequestBody Todo todo) {	// modelbinding ? spring validation framework 
 		
 		var newTodo = todoSvc.addTodo(todo);
@@ -83,6 +88,7 @@ public class TodoController {
 	}
 	
 	@PutMapping("/{id}")
+	@PreAuthorize("hasRole('Admin')")
 	public ResponseEntity<Todo> updateTodo(@PathVariable int id, @Valid @RequestBody Todo todo) {	// modelbinding ? spring validation framework 
 		var newTodo = todoSvc.updateTodo(id, todo);
 		
@@ -94,6 +100,7 @@ public class TodoController {
 	}
 	
 	@DeleteMapping("/{id}")
+	@PreAuthorize("hasRole('Admin')")
 	public ResponseEntity<Todo> deleteTodo(@PathVariable int id) {	// modelbinding ? spring validation framework 
 		var todo = todoSvc.deleteTodo(id);
 		if(todo != null)
