@@ -60,7 +60,7 @@ public class TodoController {
 	}
 	
 	@GetMapping("/{id}")
-	@PreAuthorize("hasRole('User')")
+	@PreAuthorize("hasAnyRole('User','Admin')")
 	public Todo getByTodoId(@PathVariable int id){
 		var todo = todoSvc.getById(id);
 		if(todo == null)
