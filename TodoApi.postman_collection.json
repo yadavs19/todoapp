@@ -1,0 +1,195 @@
+{
+	"info": {
+		"_postman_id": "78c5396f-f2f6-4dde-b530-cedc2760f73f",
+		"name": "TodoApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25893623",
+		"_collection_link": "https://interstellar-comet-474539.postman.co/workspace/Swayaan-Workspace~386034f9-f766-46de-9e7d-5456a6e5f91f/collection/25893623-78c5396f-f2f6-4dde-b530-cedc2760f73f?action=share&creator=25893623&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Authorization",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\":\"admin\",\r\n    \"userPassword\":\"admin@123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/authenticate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Method",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY4NjIwMjIzNSwiaWF0IjoxNjg2MDUyMjM1fQ.CpdelRaN4upup6O0Fi6zuGmMEZYcyzl_a0HT75Wdh4i9zOghyBW163x0KNnAe7FdGbI8VtRvnJUc7M07XzWMZg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\":\"Spring\",\r\n    \"description\":\"learn from scratch\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/v1/todos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Todos",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY4NjIwMjIzNSwiaWF0IjoxNjg2MDUyMjM1fQ.CpdelRaN4upup6O0Fi6zuGmMEZYcyzl_a0HT75Wdh4i9zOghyBW163x0KNnAe7FdGbI8VtRvnJUc7M07XzWMZg",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8081/api/v1/todos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Todo BY Id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY4NjIwMjIzNSwiaWF0IjoxNjg2MDUyMjM1fQ.CpdelRaN4upup6O0Fi6zuGmMEZYcyzl_a0HT75Wdh4i9zOghyBW163x0KNnAe7FdGbI8VtRvnJUc7M07XzWMZg",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8081/api/v1/todos/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"todos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Todo",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY4NjIwMjIzNSwiaWF0IjoxNjg2MDUyMjM1fQ.CpdelRaN4upup6O0Fi6zuGmMEZYcyzl_a0HT75Wdh4i9zOghyBW163x0KNnAe7FdGbI8VtRvnJUc7M07XzWMZg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":1,\r\n    \"title\":\"Python\",\r\n    \"description\":\"learn from scratch\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/v1/todos/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"todos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY4NjIwMjIzNSwiaWF0IjoxNjg2MDUyMjM1fQ.CpdelRaN4upup6O0Fi6zuGmMEZYcyzl_a0HT75Wdh4i9zOghyBW163x0KNnAe7FdGbI8VtRvnJUc7M07XzWMZg",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8081/api/v1/todos/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"todos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
