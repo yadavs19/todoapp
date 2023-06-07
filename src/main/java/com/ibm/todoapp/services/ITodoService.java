@@ -18,5 +18,13 @@ public interface ITodoService {
 	public Todo updateTodo(int id, Todo todo);
 	
 	public Todo deleteTodo(int id);
+
+	public List<Todo> getTodoByCreatedBy(String username);
+
+	public Todo getByIdAndCreatedBy(int id, String username);
+
+	public List<Todo> getByTitleAndCreatedBy(String title, String username);
+
+	public void deleteByIdAndCreatedBy(int id, String username);
 	
 }

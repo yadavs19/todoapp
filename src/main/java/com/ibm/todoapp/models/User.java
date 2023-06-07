@@ -5,6 +5,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -14,7 +16,9 @@ import javax.persistence.Table;
 @Entity
 @Table(	name = "users")
 public class User {
-    @Id
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
     private String userName;
     private String userFirstName;
     private String userLastName;
@@ -70,4 +74,16 @@ public class User {
     public void setRole(Set<Role> role) {
         this.role = role;
     }
+
+    
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	
 }

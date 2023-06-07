@@ -11,13 +11,11 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import org.springframework.hateoas.RepresentationModel;
-
 import lombok.Builder;
 
 @Entity
 @Builder
-public class Todo extends RepresentationModel<Todo> {
+public class Todo extends Auditable<String>{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
