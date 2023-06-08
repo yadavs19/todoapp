@@ -2,194 +2,292 @@
 	"info": {
 		"_postman_id": "78c5396f-f2f6-4dde-b530-cedc2760f73f",
 		"name": "TodoApi",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "25893623",
 		"_collection_link": "https://interstellar-comet-474539.postman.co/workspace/Swayaan-Workspace~386034f9-f766-46de-9e7d-5456a6e5f91f/collection/25893623-78c5396f-f2f6-4dde-b530-cedc2760f73f?action=share&creator=25893623&source=collection_link"
 	},
 	"item": [
 		{
-			"name": "Authorization",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"userName\":\"admin\",\r\n    \"userPassword\":\"admin@123\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
+			"name": "Todo",
+			"item": [
+				{
+					"name": "Create Todo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwtToken}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY4NjIwMjIzNSwiaWF0IjoxNjg2MDUyMjM1fQ.CpdelRaN4upup6O0Fi6zuGmMEZYcyzl_a0HT75Wdh4i9zOghyBW163x0KNnAe7FdGbI8VtRvnJUc7M07XzWMZg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"Guvi\",\r\n    \"description\":\"learn from scratch\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8081/api/v1/todos"
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8081/authenticate",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8081",
-					"path": [
-						"authenticate"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Create Method",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY4NjIwMjIzNSwiaWF0IjoxNjg2MDUyMjM1fQ.CpdelRaN4upup6O0Fi6zuGmMEZYcyzl_a0HT75Wdh4i9zOghyBW163x0KNnAe7FdGbI8VtRvnJUc7M07XzWMZg",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"title\":\"Spring\",\r\n    \"description\":\"learn from scratch\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
+				{
+					"name": "Get All Todos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwtToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY4NjIwMjIzNSwiaWF0IjoxNjg2MDUyMjM1fQ.CpdelRaN4upup6O0Fi6zuGmMEZYcyzl_a0HT75Wdh4i9zOghyBW163x0KNnAe7FdGbI8VtRvnJUc7M07XzWMZg",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:8081/api/v1/todos"
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8081/api/v1/todos",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8081",
-					"path": [
-						"api",
-						"v1",
-						"todos"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get All Todos",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY4NjIwMjIzNSwiaWF0IjoxNjg2MDUyMjM1fQ.CpdelRaN4upup6O0Fi6zuGmMEZYcyzl_a0HT75Wdh4i9zOghyBW163x0KNnAe7FdGbI8VtRvnJUc7M07XzWMZg",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "http://localhost:8081/api/v1/todos",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8081",
-					"path": [
-						"api",
-						"v1",
-						"todos"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Todo BY Id",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY4NjIwMjIzNSwiaWF0IjoxNjg2MDUyMjM1fQ.CpdelRaN4upup6O0Fi6zuGmMEZYcyzl_a0HT75Wdh4i9zOghyBW163x0KNnAe7FdGbI8VtRvnJUc7M07XzWMZg",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "http://localhost:8081/api/v1/todos/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8081",
-					"path": [
-						"api",
-						"v1",
-						"todos",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update Todo",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY4NjIwMjIzNSwiaWF0IjoxNjg2MDUyMjM1fQ.CpdelRaN4upup6O0Fi6zuGmMEZYcyzl_a0HT75Wdh4i9zOghyBW163x0KNnAe7FdGbI8VtRvnJUc7M07XzWMZg",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"id\":1,\r\n    \"title\":\"Python\",\r\n    \"description\":\"learn from scratch\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
+				{
+					"name": "Get Todo BY Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwtToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY4NjIwMjIzNSwiaWF0IjoxNjg2MDUyMjM1fQ.CpdelRaN4upup6O0Fi6zuGmMEZYcyzl_a0HT75Wdh4i9zOghyBW163x0KNnAe7FdGbI8VtRvnJUc7M07XzWMZg",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:8081/api/v1/todos/1"
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8081/api/v1/todos/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8081",
-					"path": [
-						"api",
-						"v1",
-						"todos",
-						"1"
-					]
+				{
+					"name": "Update Todo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwtToken}}"
+							}
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY4NjIwMjIzNSwiaWF0IjoxNjg2MDUyMjM1fQ.CpdelRaN4upup6O0Fi6zuGmMEZYcyzl_a0HT75Wdh4i9zOghyBW163x0KNnAe7FdGbI8VtRvnJUc7M07XzWMZg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":5,\r\n    \"title\":\"Azure\",\r\n    \"description\":\"Scratch\",\r\n    \"status\":true,\r\n    \"targetDate\":\"2023-06-07T12:46:16.523+00:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8081/api/v1/todos/5"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Todo",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY4NjIwMjIzNSwiaWF0IjoxNjg2MDUyMjM1fQ.CpdelRaN4upup6O0Fi6zuGmMEZYcyzl_a0HT75Wdh4i9zOghyBW163x0KNnAe7FdGbI8VtRvnJUc7M07XzWMZg",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:8081/api/v1/todos/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Todo By Title",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY4NjI4NDk3OSwiaWF0IjoxNjg2MTM0OTc5fQ.UdIdEgxs8GizmlbzWn7rMOdURRR02GiW7TDjSGQipqVKHFmISOd2V_sW0lHLPl573nX3yCmz0KR4sWmBqAMRQg"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8081/api/v1/todos/title/python"
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Delete",
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY4NjIwMjIzNSwiaWF0IjoxNjg2MDUyMjM1fQ.CpdelRaN4upup6O0Fi6zuGmMEZYcyzl_a0HT75Wdh4i9zOghyBW163x0KNnAe7FdGbI8VtRvnJUc7M07XzWMZg",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "http://localhost:8081/api/v1/todos/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
+			"name": "Authorize",
+			"item": [
+				{
+					"name": "Authorization",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"response is ok\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var json = pm.response.json();\r",
+									"var token = json[\"jwtToken\"];\r",
+									"\r",
+									"pm.environment.set(\"jwtToken\", token);"
+								],
+								"type": "text/javascript"
+							}
+						}
 					],
-					"port": "8081",
-					"path": [
-						"api",
-						"v1",
-						"todos",
-						"1"
-					]
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY4NjI2ODMyMiwiaWF0IjoxNjg2MTE4MzIyfQ.Ks3NEtapCXQlcZDYoylo_RhCG4huvLTJ1Y6TcWca00Q_N_jbbQwUgkXZccURFrWLmacKsHMg1K9tFzutdZuBUQ"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\":\"user1\",\r\n    \"userPassword\":\"user@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8081/authenticate"
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwtToken}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"userName\": \"user3\",\r\n\"userFirstName\":\"user\",\r\n\"userLastName\":\"3\",\r\n\"userPassword\":\"user@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8081/user"
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwtToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8081/user"
+					},
+					"response": []
+				},
+				{
+					"name": "GetUserById",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwtToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8081/user/1"
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwtToken}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8081/user/3"
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwtToken}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"id\":4,\r\n\"userName\": \"user4\",\r\n\"userFirstName\":\"user\",\r\n\"userLastName\":\"4\",\r\n\"userPassword\":\"user@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8081/user/4"
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

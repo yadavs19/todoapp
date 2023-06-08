@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.ibm.todoapp.models.JwtRequest;
 import com.ibm.todoapp.models.JwtResponse;
+import com.ibm.todoapp.models.Role;
 import com.ibm.todoapp.models.User;
 import com.ibm.todoapp.repository.UserRepository;
 import com.ibm.todoapp.util.JwtUtil;
@@ -61,9 +62,10 @@ public class JwtService implements UserDetailsService {
 
     private Set getAuthority(User user) {
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
-        user.getRole().forEach(role -> {
-            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRoleName()));
-        });
+        Role role = user.getRole();
+        if (role != null) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
+        }
         return authorities;
     }
 

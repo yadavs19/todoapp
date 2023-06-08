@@ -8,4 +8,6 @@ import com.ibm.todoapp.models.Role;
 @Repository
 public interface RoleRepository extends CrudRepository<Role, Integer> {
 
+	Role findByName(String roleName);
+
 }

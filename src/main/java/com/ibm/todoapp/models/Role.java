@@ -1,32 +1,44 @@
 package com.ibm.todoapp.models;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Role {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String roleName;
-	private String roleDescription;
+	
+	@Column
+	private String name;
+	private String description;
+	
+	@OneToMany(mappedBy = "role",cascade = CascadeType.ALL)
+    private List<User> users;
 
-	public String getRoleName() {
-		return roleName;
+
+
+	public String getName() {
+		return name;
 	}
 
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getRoleDescription() {
-		return roleDescription;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setRoleDescription(String roleDescription) {
-		this.roleDescription = roleDescription;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public int getId() {
@@ -35,6 +47,14 @@ public class Role {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
 	
 	

@@ -1,5 +1,6 @@
 package com.ibm.todoapp.models;
 
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -11,10 +12,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import lombok.Builder;
 
 @Entity
 @Table(	name = "users")
+@Builder
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,16 +29,9 @@ public class User {
     private String userLastName;
     private String userPassword;
     
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "USER_ROLE",
-            joinColumns = {
-                    @JoinColumn(name = "USER_ID")
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "ROLE_ID")
-            }
-    )
-    private Set<Role> role;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id")
+    private Role role;
 
     public String getUserName() {
         return userName;
@@ -67,15 +65,15 @@ public class User {
         this.userPassword = userPassword;
     }
 
-    public Set<Role> getRole() {
-        return role;
-    }
-
-    public void setRole(Set<Role> role) {
-        this.role = role;
-    }
-
     
+    
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
 
 	public int getId() {
 		return id;
@@ -84,6 +82,47 @@ public class User {
 	public void setId(int id) {
 		this.id = id;
 	}
+
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public User(int id, String userName, String userFirstName, String userLastName, String userPassword, Role role) {
+		super();
+		this.id = id;
+		this.userName = userName;
+		this.userFirstName = userFirstName;
+		this.userLastName = userLastName;
+		this.userPassword = userPassword;
+		this.role = role;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, role, userFirstName, userLastName, userName, userPassword);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		return id == other.id && Objects.equals(role, other.role) && Objects.equals(userFirstName, other.userFirstName)
+				&& Objects.equals(userLastName, other.userLastName) && Objects.equals(userName, other.userName)
+				&& Objects.equals(userPassword, other.userPassword);
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", userName=" + userName + ", userFirstName=" + userFirstName + ", userLastName="
+				+ userLastName + ", userPassword=" + userPassword + ", role=" + role + "]";
+	}
+	
 	
 	
 }

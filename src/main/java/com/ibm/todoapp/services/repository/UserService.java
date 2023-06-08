@@ -36,14 +36,14 @@ public class UserService implements IUserService {
 
 		Role adminRole = new Role();
 		adminRole.setId(1);
-		adminRole.setRoleName("Admin");
-		adminRole.setRoleDescription("Admin role");
+		adminRole.setName("Admin");
+		adminRole.setDescription("Admin role");
 		rolerepo.save(adminRole);
 
 		Role userRole = new Role();
 		userRole.setId(2);
-		userRole.setRoleName("User");
-		userRole.setRoleDescription("Default role for newly created record");
+		userRole.setName("User");
+		userRole.setDescription("Default role for newly created record");
 		rolerepo.save(userRole);
 
 		User adminUser = new User();
@@ -52,9 +52,8 @@ public class UserService implements IUserService {
 		adminUser.setUserPassword(getEncodedPassword("admin@123"));
 		adminUser.setUserFirstName("admin");
 		adminUser.setUserLastName(" ");
-		Set<Role> adminRoles = new HashSet<>();
-		adminRoles.add(adminRole);
-		adminUser.setRole(adminRoles);
+		Role adminRoles1 = rolerepo.findByName("Admin");
+		adminUser.setRole(adminRoles1);
 		userrepo.save(adminUser);
 
 		User user = new User();
@@ -63,9 +62,8 @@ public class UserService implements IUserService {
 		user.setUserPassword(getEncodedPassword("user@123"));
 		user.setUserFirstName("user");
 		user.setUserLastName("1 ");
-		Set<Role> userRoles = new HashSet<>();
-		userRoles.add(userRole);
-		user.setRole(userRoles);
+		Role userRole1 = rolerepo.findByName("User");
+		user.setRole(userRole1);
 		userrepo.save(user);
 	}
 
@@ -99,12 +97,9 @@ public class UserService implements IUserService {
 
 	@Override
 	public User addUser(User user) {
-		Role role = rolerepo.findById(2).get();
-		Set<Role> userRoles = new HashSet<>();
-		userRoles.add(role);
-		user.setRole(userRoles);
+		Role userRole = rolerepo.findByName("User");
+		user.setRole(userRole);
 		user.setUserPassword(getEncodedPassword(user.getUserPassword()));
-
 		return userrepo.save(user);
 	}
 
@@ -118,7 +113,7 @@ public class UserService implements IUserService {
 			updateUser.setUserFirstName(user.getUserFirstName());
 			updateUser.setUserLastName(user.getUserLastName());
 			updateUser.setUserPassword(getEncodedPassword(user.getUserPassword()));
-			Set<Role> role = updateUser.getRole();
+			Role role = updateUser.getRole();
 			user.setRole(role);
 			return userrepo.save(user);
 		}
