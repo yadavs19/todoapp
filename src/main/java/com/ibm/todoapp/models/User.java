@@ -15,20 +15,25 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.Builder;
 
 @Entity
 @Table(	name = "users")
 @Builder
+
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
     private String userName;
     private String userFirstName;
     private String userLastName;
     private String userPassword;
     
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
     private Role role;
@@ -75,11 +80,11 @@ public class User {
 		this.role = role;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -88,7 +93,7 @@ public class User {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(int id, String userName, String userFirstName, String userLastName, String userPassword, Role role) {
+	public User(Integer id, String userName, String userFirstName, String userLastName, String userPassword, Role role) {
 		super();
 		this.id = id;
 		this.userName = userName;

@@ -18,7 +18,7 @@ import lombok.Builder;
 public class Todo extends Auditable<String>{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 
 	// spring validation framework
 	@NotBlank(message = "Title is required.")
@@ -32,11 +32,11 @@ public class Todo extends Auditable<String>{
 
 	private Date targetDate;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -72,7 +72,9 @@ public class Todo extends Auditable<String>{
 		this.targetDate = targetDate;
 	}
 
-	public Todo(int id, String title, String description, boolean status, Date targetDate) {
+	public Todo(Integer id, @NotBlank(message = "Title is required.") String title,
+			@Size(min = 5, max = 20, message = "length should be morethan 5 and less than 20 characters") String description,
+			boolean status, Date targetDate) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -83,6 +85,7 @@ public class Todo extends Auditable<String>{
 
 	public Todo() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -99,7 +102,7 @@ public class Todo extends Auditable<String>{
 		if (getClass() != obj.getClass())
 			return false;
 		Todo other = (Todo) obj;
-		return Objects.equals(description, other.description) && id == other.id && status == other.status
+		return Objects.equals(description, other.description) && Objects.equals(id, other.id) && status == other.status
 				&& Objects.equals(targetDate, other.targetDate) && Objects.equals(title, other.title);
 	}
 
@@ -108,4 +111,6 @@ public class Todo extends Auditable<String>{
 		return "Todo [id=" + id + ", title=" + title + ", description=" + description + ", status=" + status
 				+ ", targetDate=" + targetDate + "]";
 	}
+	
+	
 }

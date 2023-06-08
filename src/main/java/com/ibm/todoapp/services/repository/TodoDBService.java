@@ -1,5 +1,6 @@
 package com.ibm.todoapp.services.repository;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -9,7 +10,10 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ibm.todoapp.dto.TodoDTO;
+import com.ibm.todoapp.dto.UserDTO;
 import com.ibm.todoapp.models.Todo;
+import com.ibm.todoapp.models.User;
 import com.ibm.todoapp.repository.TodoJPARepository;
 import com.ibm.todoapp.services.ITodoService;
 
@@ -29,7 +33,7 @@ public class TodoDBService implements ITodoService {
 	}
 
 	@Override
-	public Todo getById(int id) {
+	public Todo getById(Integer id) {
 		// TODO Auto-generated method stub
 		var todos = todoDbRepo.findById(id);
 		return todos.get();
@@ -41,7 +45,7 @@ public class TodoDBService implements ITodoService {
 	}
 
 	@Override
-	public Todo updateTodo(int id, Todo todo) {
+	public Todo updateTodo(Integer id, Todo todo) {
 		// TODO Auto-generated method stub
 		Optional<Todo> existingTodo = todoDbRepo.findById(id);
 		if (existingTodo.isPresent()) {
@@ -60,7 +64,7 @@ public class TodoDBService implements ITodoService {
 	}
 
 	@Override
-	public Todo deleteTodo(int id) {
+	public Todo deleteTodo(Integer id) {
 		// TODO Auto-generated method stub
 		Optional<Todo> existingTodo = todoDbRepo.findById(id);
 		if (existingTodo.isPresent()) {
@@ -85,7 +89,7 @@ public class TodoDBService implements ITodoService {
 	}
 
 	@Override
-	public Todo getByIdAndCreatedBy(int id, String username) {
+	public Todo getByIdAndCreatedBy(Integer id, String username) {
 		// TODO Auto-generated method stub
 		var todos = todoDbRepo.getByIdAndCreatedBy(id,username);
 		return todos;
@@ -99,8 +103,47 @@ public class TodoDBService implements ITodoService {
 	}
 
 	@Override
-	public void deleteByIdAndCreatedBy(int id, String username) {
+	public void deleteByIdAndCreatedBy(Integer id, String username) {
 		// TODO Auto-generated method stub
 		todoDbRepo.deleteByIdAndCreatedBy(id,username);
+	}
+	
+	@Override
+	public TodoDTO TodotoTodoDTO(Todo todo) {
+		TodoDTO todoDTO = new TodoDTO();
+		todoDTO.setId(todo.getId());
+		todoDTO.setTitle(todo.getTitle());
+		todoDTO.setDescription(todo.getDescription());
+		return todoDTO;
+	}
+
+	@Override
+	public List<TodoDTO> TodotoTodoDTO(List<Todo> listTodos) {
+		// TODO Auto-generated method stub
+		List<TodoDTO> listTodoDTOs = new ArrayList<>();
+		for(Todo todo : listTodos) {
+			TodoDTO todoDTO = TodotoTodoDTO(todo);
+			listTodoDTOs.add(todoDTO);
+		}
+		return listTodoDTOs;
+	}
+	
+	@Override
+	public Todo TodoDTOtoTodo(TodoDTO todoDTO) {
+		Todo todo = new Todo();
+		todo.setId(todoDTO.getId());
+		todo.setTitle(todoDTO.getTitle());
+		todo.setDescription(todoDTO.getDescription());
+		return todo;
+	}
+	
+	@Override
+	public List<Todo> TodoDTOtoTodo(List<TodoDTO> lisTodoDTO){
+		List<Todo> listTodo = new ArrayList<>();
+		for(TodoDTO todoDTO : lisTodoDTO) {
+			Todo todo = TodoDTOtoTodo(todoDTO);
+			listTodo.add(todo);
+		}
+		return listTodo;
 	}
 }

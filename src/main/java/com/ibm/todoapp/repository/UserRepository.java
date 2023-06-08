@@ -10,7 +10,7 @@ import com.ibm.todoapp.models.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-	User getUserByUserName(String userName);
+	public User getUserByUserName(String userName);
 
-	List<User> findByUserName(String userName);
+	public List<User> findByUserName(String userName);
 }

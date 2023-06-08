@@ -10,20 +10,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Role {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	
 	@Column
 	private String name;
 	private String description;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "role",cascade = CascadeType.ALL)
     private List<User> users;
-
-
 
 	public String getName() {
 		return name;
@@ -41,11 +42,11 @@ public class Role {
 		this.description = description;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

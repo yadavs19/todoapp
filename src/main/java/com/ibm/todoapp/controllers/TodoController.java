@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ibm.todoapp.dto.TodoDTO;
 import com.ibm.todoapp.exceptions.TodoNotFoundException;
 import com.ibm.todoapp.exceptions.UnAuthorizedException;
 import com.ibm.todoapp.models.Role;
@@ -39,146 +40,154 @@ import com.ibm.todoapp.services.ITodoService;
 @RequestMapping("/api/v1/todos")
 public class TodoController {
 
-	private static final int Todo = 0;
+	private static final Integer Todo = 0;
 	@Autowired
 	ITodoService todoSvc;
 
 	@GetMapping()
 	@PreAuthorize("hasAnyRole('User','Admin')")
-	public List<Todo> getAllTodos(User user) {
+	public List<TodoDTO> getAllTodos() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String role = authentication.getAuthorities().iterator().next().getAuthority();
 
-		List<Todo> todos = new ArrayList<>();
-
+		List<TodoDTO> todoDTO = new ArrayList<>();
 		if (role.equals("ROLE_Admin")) {
-			todos = todoSvc.getAllTodos();
-
+			List<Todo> todos = todoSvc.getAllTodos();
+			todoDTO = todoSvc.TodotoTodoDTO(todos);
 		} else if (role.equals("ROLE_User")) {
 			String username = authentication.getName();
-			todos = todoSvc.getTodoByCreatedBy(username);
+			List<Todo> todos = todoSvc.getTodoByCreatedBy(username);
+			todoDTO = todoSvc.TodotoTodoDTO(todos);
 		}
-		return todos;
+		return todoDTO;
 
 	}
 
 	@GetMapping("/{id}")
 	@PreAuthorize("hasAnyRole('User','Admin')")
-	public Todo getByTodoId(@PathVariable int id) {
+	public TodoDTO getByTodoId(@PathVariable Integer id) throws TodoNotFoundException {
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String role = authentication.getAuthorities().iterator().next().getAuthority();
 
-		Todo todos = null;
+		TodoDTO todoDTO = new TodoDTO();
 
 		if (role.equals("ROLE_Admin")) {
-			todos = todoSvc.getById(id);
+			Todo todos = todoSvc.getById(id);
+			todoDTO = todoSvc.TodotoTodoDTO(todos);
 			if (todos == null) {
 				throw new TodoNotFoundException("Todo Not Found");
 			}
 		} else if (role.equals("ROLE_User")) {
 			String username = authentication.getName();
-			todos = todoSvc.getByIdAndCreatedBy(id, username);
+			Todo todos = todoSvc.getByIdAndCreatedBy(id, username);
+			todoDTO = todoSvc.TodotoTodoDTO(todos);
 			if (todos == null) {
-				throw new UnAuthorizedException("Sorry,your request could not be processed");
+				throw new TodoNotFoundException("Todo Not Found");
 			}
 		}
 
-		return todos;
+		return todoDTO;
 
 	}
 
 	@GetMapping("/title/{title}")
 	@PreAuthorize("hasAnyRole('User','Admin')")
-	public List<Todo> getByTodoTitle(@PathVariable String title) {
+	public List<TodoDTO> getByTodoTitle(@PathVariable String title) throws TodoNotFoundException{
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String role = authentication.getAuthorities().iterator().next().getAuthority();
 
-		List<Todo> todos = null;
+		List<TodoDTO> todoDTO = null;
 
 		if (role.equals("ROLE_Admin")) {
-			todos = todoSvc.getByTitle(title);
-			if (todos == null) {
+			List<Todo> todos = todoSvc.getByTitle(title);
+			todoDTO = todoSvc.TodotoTodoDTO(todos);
+			if (todoDTO.isEmpty()) {
 				throw new TodoNotFoundException("Todo Not Found");
 			}
 		} else if (role.equals("ROLE_User")) {
 			String username = authentication.getName();
-			todos = todoSvc.getByTitleAndCreatedBy(title, username);
+			List<Todo> todos = todoSvc.getByTitleAndCreatedBy(title, username);
+			todoDTO = todoSvc.TodotoTodoDTO(todos);
 			if (todos.isEmpty()) {
-				throw new UnAuthorizedException("Sorry,your request could not be processed");
+				throw new TodoNotFoundException("Todo Not Found");
 			}
 		}
 
-		return todos;
+		return todoDTO;
 
 	}
 
 	@PostMapping()
 	@PreAuthorize("hasAnyRole('User','Admin')")
-	public ResponseEntity<Todo> createTodo(@Valid @RequestBody Todo todo) { // modelbinding ? spring validation
-																			// framework
-		var newTodo = todoSvc.addTodo(todo);
-		return new ResponseEntity<Todo>(newTodo, HttpStatus.CREATED);
+	public ResponseEntity<TodoDTO> createTodo(@Valid @RequestBody TodoDTO todoDTO) { // modelbinding ? spring validation
+		Todo newTodo = todoSvc.TodoDTOtoTodo(todoDTO);																	// framework
+		Todo newTodo1 = todoSvc.addTodo(newTodo);
+		TodoDTO todoDTO2 = todoSvc.TodotoTodoDTO(newTodo1);
+		return new ResponseEntity<TodoDTO>(todoDTO2, HttpStatus.CREATED);
 	}
 
 	@PutMapping("/{id}")
 	@PreAuthorize("hasAnyRole('User','Admin')")
-	public ResponseEntity<Todo> updateTodo(@PathVariable int id, @Valid @RequestBody Todo updatedTodo) { // modelbinding ?
-																									// spring validation
-																									// framework
+	public ResponseEntity<TodoDTO> updateTodo(@PathVariable Integer id, @Valid @RequestBody TodoDTO todoDTO) { // modelbinding
+																											// ?
+		// spring validation
+		// framework
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String role = authentication.getAuthorities().iterator().next().getAuthority();
+
+		Todo newTodo = todoSvc.TodoDTOtoTodo(todoDTO);
 		
-		Todo todos = null;
 		if (role.equals("ROLE_Admin")) {
-			todos = todoSvc.getById(id);
-			if(todos!=null) {
-				todos = todoSvc.updateTodo(id, updatedTodo);
-				return new ResponseEntity<Todo>(todos, HttpStatus.OK);
-			}else {
+			Todo todos = todoSvc.getById(id);
+			if (todos != null) {
+			Todo todos1 = todoSvc.updateTodo(id, newTodo);
+			TodoDTO todoDTO1 = todoSvc.TodotoTodoDTO(todos1);
+				return new ResponseEntity<TodoDTO>(todoDTO1, HttpStatus.OK);
+			} else {
 				throw new UnAuthorizedException("Sorry,your request could not be processed");
 			}
-			
-		}else if(role.equals("ROLE_User")) {
+
+		} else if (role.equals("ROLE_User")) {
 			String username = authentication.getName();
-			todos = todoSvc.getByIdAndCreatedBy(id, username);
-			if(todos!=null) {
-				todos = todoSvc.updateTodo(id, updatedTodo);
-				return new ResponseEntity<Todo>(todos, HttpStatus.OK);
-			}else{
+			Todo todos = todoSvc.getByIdAndCreatedBy(id, username);
+			if (todos != null) {
+			Todo todos1 = todoSvc.updateTodo(id, newTodo);
+			TodoDTO todoDTO1 = todoSvc.TodotoTodoDTO(todos1);
+				return new ResponseEntity<TodoDTO>(todoDTO1, HttpStatus.OK);
+			} else {
 				throw new UnAuthorizedException("Sorry,your request could not be processed");
 			}
-		}else {
+		} else {
 			throw new UnAuthorizedException("Sorry,your request could not be processed");
 		}
-		
-		
+
 	}
 
 	@DeleteMapping("/{id}")
 	@PreAuthorize("hasAnyRole('User','Admin')")
-	public ResponseEntity<Todo> deleteTodo(@PathVariable int id) { // modelbinding ? spring validation framework
+	public ResponseEntity<Todo> deleteTodo(@PathVariable Integer id) { // modelbinding ? spring validation framework
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String role = authentication.getAuthorities().iterator().next().getAuthority();
-		
+
 		Todo todos = null;
 		if (role.equals("ROLE_Admin")) {
 			todos = todoSvc.getById(id);
-			if(todos!=null) {
+			if (todos != null) {
 				todos = todoSvc.deleteTodo(id);
-			}else {
+			} else {
 				throw new TodoNotFoundException("Todo Not Found");
 			}
 
 		} else if (role.equals("ROLE_User")) {
 			String username = authentication.getName();
 			todos = todoSvc.getByIdAndCreatedBy(id, username);
-			if(todos!=null) {
-				todoSvc.deleteByIdAndCreatedBy(id,username);
-			}else {
+			if (todos != null) {
+				todoSvc.deleteByIdAndCreatedBy(id, username);
+			} else {
 				throw new UnAuthorizedException("Sorry,your request could not be processed");
 			}
-		}else {
+		} else {
 			throw new UnAuthorizedException("Sorry,your request could not be processed");
 		}
 		return null;

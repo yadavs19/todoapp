@@ -29,7 +29,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\":\"Guvi\",\r\n    \"description\":\"learn from scratch\"\r\n}",
+							"raw": "{\r\n    \"title\":\"Azure\",\r\n    \"description\":\"learn from scratch\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -78,7 +78,7 @@
 								"type": "text"
 							}
 						],
-						"url": "http://localhost:8081/api/v1/todos/1"
+						"url": "http://localhost:8081/api/v1/todos/2"
 					},
 					"response": []
 				},
@@ -101,20 +101,26 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\":5,\r\n    \"title\":\"Azure\",\r\n    \"description\":\"Scratch\",\r\n    \"status\":true,\r\n    \"targetDate\":\"2023-06-07T12:46:16.523+00:00\"\r\n}",
+							"raw": "{\r\n    \"id\":2,\r\n    \"title\":\"Java\",\r\n    \"description\":\"Scratch\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "http://localhost:8081/api/v1/todos/5"
+						"url": "http://localhost:8081/api/v1/todos/2"
 					},
 					"response": []
 				},
 				{
 					"name": "Delete Todo",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwtToken}}"
+							}
+						},
 						"method": "DELETE",
 						"header": [
 							{
@@ -123,7 +129,7 @@
 								"type": "text"
 							}
 						],
-						"url": "http://localhost:8081/api/v1/todos/1"
+						"url": "http://localhost:8081/api/v1/todos/2"
 					},
 					"response": []
 				},
@@ -133,12 +139,12 @@
 						"auth": {
 							"type": "bearer",
 							"bearer": {
-								"token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY4NjI4NDk3OSwiaWF0IjoxNjg2MTM0OTc5fQ.UdIdEgxs8GizmlbzWn7rMOdURRR02GiW7TDjSGQipqVKHFmISOd2V_sW0lHLPl573nX3yCmz0KR4sWmBqAMRQg"
+								"token": "{{jwtToken}}"
 							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8081/api/v1/todos/title/python"
+						"url": "http://localhost:8081/api/v1/todos/title/java"
 					},
 					"response": []
 				}
@@ -178,7 +184,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"userName\":\"user1\",\r\n    \"userPassword\":\"user@123\"\r\n}",
+							"raw": "{\r\n    \"userName\":\"admin\",\r\n    \"userPassword\":\"admin@123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -207,7 +213,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\"userName\": \"user3\",\r\n\"userFirstName\":\"user\",\r\n\"userLastName\":\"3\",\r\n\"userPassword\":\"user@123\"\r\n}",
+							"raw": "{\r\n\"userName\": \"user6\",\r\n\"userFirstName\":\"user\",\r\n\"userLastName\":\"6\",\r\n\"userPassword\":\"user@123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -276,14 +282,14 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\"id\":4,\r\n\"userName\": \"user4\",\r\n\"userFirstName\":\"user\",\r\n\"userLastName\":\"4\",\r\n\"userPassword\":\"user@123\"\r\n}",
+							"raw": "{\r\n\"id\":2,\r\n\"userName\": \"user4\",\r\n\"userFirstName\":\"user\",\r\n\"userLastName\":\"4\",\r\n\"userPassword\":\"user@123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "http://localhost:8081/user/4"
+						"url": "http://localhost:8081/user/2"
 					},
 					"response": []
 				}

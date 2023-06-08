@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ibm.todoapp.dto.UserDTO;
 import com.ibm.todoapp.exceptions.UserNotFoundException;
 import com.ibm.todoapp.models.User;
 import com.ibm.todoapp.services.IUserService;
@@ -42,40 +43,44 @@ public class UserController {
 
     @GetMapping()
     @PreAuthorize("hasRole('Admin')")
-	public List<User> getAllUser() throws UserNotFoundException{
-		 
-		var users = userService.getAllUser();
-		if(users.size()==0)
+	public List<UserDTO> getAllUser() throws UserNotFoundException{
+		List<User> listUsers = userService.getAllUser();
+		List<UserDTO> listUserDTO = userService.UsertoUserDTO(listUsers);
+		if(listUserDTO.size()==0)
 			throw new UserNotFoundException("User Not Found");
-			return users;
+			return listUserDTO;
 		}
 	
 	
 	@GetMapping("/{id}")
 	@PreAuthorize("hasRole('Admin')")
-	public User getByUserId(@PathVariable int id) throws UserNotFoundException{
-		var users = userService.getById(id);
-		if(users == null)
+	public UserDTO getByUserId(@PathVariable Integer id) throws UserNotFoundException{
+		User users = userService.getById(id);
+		UserDTO userDTO = userService.UsertoUserDTO(users);
+		if(userDTO == null)
 			throw new UserNotFoundException("User Not Found");
 		else
-			return users;
+			return userDTO;
 	}
 	
 	@PostMapping()
 	@PreAuthorize("hasRole('Admin')")
-	public ResponseEntity<User> createUser(@Valid @RequestBody User user) {	// modelbinding ? spring validation framework 
-		
-		var newUser = userService.addUser(user);
-		return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
+	public ResponseEntity<UserDTO> createUser(@Valid @RequestBody UserDTO userDTO) {	// modelbinding ? spring validation framework 
+		User newUser = userService.UserDTOtoUser(userDTO);
+		User newUser1 = userService.addUser(newUser);
+		UserDTO userDTO1 = userService.UsertoUserDTO(newUser1);
+		return new ResponseEntity<UserDTO>(userDTO1, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{id}")
 	@PreAuthorize("hasRole('Admin')")
-	public ResponseEntity<User> updateUser(@PathVariable int id, @Valid @RequestBody User user) throws UserNotFoundException {	// modelbinding ? spring validation framework 
-		var newUser = userService.updateUser(id, user);
+	public ResponseEntity<UserDTO> updateUser(@PathVariable Integer id, @Valid @RequestBody UserDTO userDTO) throws UserNotFoundException {	// modelbinding ? spring validation framework 
+		User newUser = userService.UserDTOtoUser(userDTO);
+		User newUser1 = userService.updateUser(id, newUser);
+		UserDTO userDTO1 = userService.UsertoUserDTO(newUser1);
 		
-		if(newUser != null)
-			return new ResponseEntity<User>(newUser, HttpStatus.OK);
+		if(userDTO1 != null)
+			return new ResponseEntity<UserDTO>(userDTO1, HttpStatus.OK);
 		else
 			//return (ResponseEntity<com.ibm.todoapp.models.Todo>) ResponseEntity.notFound();
 			throw new UserNotFoundException("User Not Found");
@@ -83,10 +88,10 @@ public class UserController {
 	
 	@DeleteMapping("/{id}")
 	@PreAuthorize("hasRole('Admin')")
-	public ResponseEntity<User> deleteUser(@PathVariable int id) throws UserNotFoundException {	// modelbinding ? spring validation framework 
-		var user = userService.deleteUser(id);
+	public ResponseEntity<User> deleteUser(@PathVariable Integer id) throws UserNotFoundException {	// modelbinding ? spring validation framework 
+		User user = userService.deleteUser(id);
 		if(user != null)
-			return new ResponseEntity<User>(user, HttpStatus.OK);
+			return null;
 		else
 			throw new UserNotFoundException("User Not Found");
 	}
