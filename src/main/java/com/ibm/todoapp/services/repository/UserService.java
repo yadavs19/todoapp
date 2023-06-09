@@ -13,8 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.ibm.todoapp.dto.TodoDTO;
 import com.ibm.todoapp.dto.UserDTO;
 import com.ibm.todoapp.models.Role;
+import com.ibm.todoapp.models.Todo;
 import com.ibm.todoapp.models.User;
 import com.ibm.todoapp.repository.RoleRepository;
 import com.ibm.todoapp.repository.UserRepository;
@@ -87,10 +89,10 @@ public class UserService implements IUserService {
 	}
 
 	@Override
-	public User getById(Integer id) {
+	public Optional<User> getById(Integer id) {
 		// TODO Auto-generated method stub
 		Optional<User> optionalUser = userrepo.findById(id);
-		return optionalUser.get();
+		return optionalUser;
 	}
 
 	@Override
@@ -171,5 +173,18 @@ public class UserService implements IUserService {
 			listUser.add(user);
 		}
 		return listUser;
+	}
+
+	@Override
+	public UserDTO UsertoUserDTO(Optional<User> users) {
+		// TODO Auto-generated method stub
+		User user = users.get();
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(user.getId());
+        userDTO.setUserName(user.getUserName());
+        userDTO.setUserFirstName(user.getUserFirstName());
+        userDTO.setUserLastName(user.getUserLastName());
+        userDTO.setUserPassword(user.getUserPassword());
+        return userDTO;
 	}
 }

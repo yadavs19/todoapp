@@ -1,6 +1,7 @@
 package com.ibm.todoapp.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.ibm.todoapp.dto.TodoDTO;
 import com.ibm.todoapp.models.Todo;
@@ -10,7 +11,7 @@ public interface ITodoService {
 	
 	public List<Todo> getAllTodos();
 	
-	public Todo getById(Integer id);
+	public Optional<Todo> getById(Integer id);
 	
 	public List<Todo> getByTitle(String title);
 	
@@ -35,5 +36,7 @@ public interface ITodoService {
 	public List<TodoDTO> TodotoTodoDTO(List<Todo> listTodos);
 
 	public TodoDTO TodotoTodoDTO(Todo todo);
+
+	public TodoDTO TodotoTodoDTO(Optional<Todo> todos);
 	
 }

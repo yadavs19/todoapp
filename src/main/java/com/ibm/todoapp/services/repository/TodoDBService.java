@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.ibm.todoapp.dto.TodoDTO;
 import com.ibm.todoapp.dto.UserDTO;
+import com.ibm.todoapp.exceptions.TodoNotFoundException;
 import com.ibm.todoapp.models.Todo;
 import com.ibm.todoapp.models.User;
 import com.ibm.todoapp.repository.TodoJPARepository;
@@ -33,10 +34,10 @@ public class TodoDBService implements ITodoService {
 	}
 
 	@Override
-	public Todo getById(Integer id) {
+	public Optional<Todo> getById(Integer id) {
 		// TODO Auto-generated method stub
-		var todos = todoDbRepo.findById(id);
-		return todos.get();
+		Optional<Todo> todos = todoDbRepo.findById(id);
+		return todos;
 	}
 
 	@Override
@@ -91,23 +92,23 @@ public class TodoDBService implements ITodoService {
 	@Override
 	public Todo getByIdAndCreatedBy(Integer id, String username) {
 		// TODO Auto-generated method stub
-		var todos = todoDbRepo.getByIdAndCreatedBy(id,username);
+		var todos = todoDbRepo.getByIdAndCreatedBy(id, username);
 		return todos;
 	}
 
 	@Override
 	public List<Todo> getByTitleAndCreatedBy(String title, String username) {
 		// TODO Auto-generated method stub
-		var todos = todoDbRepo.getByTitleAndCreatedBy(title,username);
+		var todos = todoDbRepo.getByTitleAndCreatedBy(title, username);
 		return todos;
 	}
 
 	@Override
 	public void deleteByIdAndCreatedBy(Integer id, String username) {
 		// TODO Auto-generated method stub
-		todoDbRepo.deleteByIdAndCreatedBy(id,username);
+		todoDbRepo.deleteByIdAndCreatedBy(id, username);
 	}
-	
+
 	@Override
 	public TodoDTO TodotoTodoDTO(Todo todo) {
 		TodoDTO todoDTO = new TodoDTO();
@@ -121,13 +122,13 @@ public class TodoDBService implements ITodoService {
 	public List<TodoDTO> TodotoTodoDTO(List<Todo> listTodos) {
 		// TODO Auto-generated method stub
 		List<TodoDTO> listTodoDTOs = new ArrayList<>();
-		for(Todo todo : listTodos) {
+		for (Todo todo : listTodos) {
 			TodoDTO todoDTO = TodotoTodoDTO(todo);
 			listTodoDTOs.add(todoDTO);
 		}
 		return listTodoDTOs;
 	}
-	
+
 	@Override
 	public Todo TodoDTOtoTodo(TodoDTO todoDTO) {
 		Todo todo = new Todo();
@@ -136,14 +137,25 @@ public class TodoDBService implements ITodoService {
 		todo.setDescription(todoDTO.getDescription());
 		return todo;
 	}
-	
+
 	@Override
-	public List<Todo> TodoDTOtoTodo(List<TodoDTO> lisTodoDTO){
+	public List<Todo> TodoDTOtoTodo(List<TodoDTO> lisTodoDTO) {
 		List<Todo> listTodo = new ArrayList<>();
-		for(TodoDTO todoDTO : lisTodoDTO) {
+		for (TodoDTO todoDTO : lisTodoDTO) {
 			Todo todo = TodoDTOtoTodo(todoDTO);
 			listTodo.add(todo);
 		}
 		return listTodo;
+	}
+
+	@Override
+	public TodoDTO TodotoTodoDTO(Optional<Todo> todos) {
+		// TODO Auto-generated method stub
+			Todo todo = todos.get();
+	        TodoDTO todoDTO = new TodoDTO();
+	        todoDTO.setId(todo.getId());
+	        todoDTO.setDescription(todo.getDescription());
+	        todoDTO.setTitle(todo.getTitle());
+	        return todoDTO;
 	}
 }

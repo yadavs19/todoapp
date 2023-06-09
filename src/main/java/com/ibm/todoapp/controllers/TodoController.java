@@ -1,7 +1,10 @@
 package com.ibm.todoapp.controllers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -11,18 +14,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ibm.todoapp.dto.TodoDTO;
 import com.ibm.todoapp.exceptions.TodoNotFoundException;
 import com.ibm.todoapp.exceptions.UnAuthorizedException;
+import com.ibm.todoapp.models.ErrorResponse;
 import com.ibm.todoapp.models.Todo;
 import com.ibm.todoapp.services.ITodoService;
 
@@ -70,9 +77,10 @@ public class TodoController {
 		TodoDTO todoDTO = new TodoDTO();
 
 		if (role.equals("ROLE_Admin")) {
-			Todo todos = todoSvc.getById(id);
-			todoDTO = todoSvc.TodotoTodoDTO(todos);
-			if (todos == null) {
+			Optional<Todo> todos = todoSvc.getById(id);
+			if(!todos.isEmpty()) {
+				todoDTO = todoSvc.TodotoTodoDTO(todos);
+			}else {
 				throw new TodoNotFoundException("Todo Not Found");
 			}
 		} else if (role.equals("ROLE_User")) {
@@ -138,14 +146,14 @@ public class TodoController {
 		Todo newTodo = todoSvc.TodoDTOtoTodo(todoDTO);
 
 		if (role.equals("ROLE_Admin")) {
-			Todo todos = todoSvc.getById(id);
-			Todo todos1 = todoSvc.updateTodo(id, newTodo);
-			TodoDTO todoDTO1 = todoSvc.TodotoTodoDTO(todos1);
-			if(todos==null) {
+			Optional<Todo> todos = todoSvc.getById(id);
+			if(!todos.isEmpty()) {
+				Todo todos1 = todoSvc.updateTodo(id, newTodo);
+				TodoDTO todoDTO1 = todoSvc.TodotoTodoDTO(todos1);
+				return new ResponseEntity<TodoDTO>(todoDTO1, HttpStatus.OK);
+			}else {
 				throw new TodoNotFoundException("Todo Not Found");
 			}
-			return new ResponseEntity<TodoDTO>(todoDTO1, HttpStatus.OK);
-			
 
 		} else if (role.equals("ROLE_User")) {
 			String username = authentication.getName();
@@ -163,28 +171,30 @@ public class TodoController {
 
 	@DeleteMapping("/{id}")
 	@PreAuthorize("hasAnyRole('User','Admin')")
-	public ResponseEntity<Todo> deleteTodo(@PathVariable Integer id) { // modelbinding ? spring validation framework
+	public ResponseEntity<String> deleteTodo(@PathVariable Integer id) { // modelbinding ? spring validation framework
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String role = authentication.getAuthorities().iterator().next().getAuthority();
 
-		Todo todos = null;
 		if (role.equals("ROLE_Admin")) {
-			todos = todoSvc.getById(id);
-			if (todos != null) {
-				todos = todoSvc.deleteTodo(id);
-			} else {
+			Optional<Todo> todos = todoSvc.getById(id);
+			if(!todos.isEmpty()) {
+				Todo todos1 = todoSvc.deleteTodo(id);
+				 return ResponseEntity.ok("Todo deleted successfully!!!");
+			}else {
 				throw new TodoNotFoundException("Todo Not Found");
 			}
 
 		} else if (role.equals("ROLE_User")) {
 			String username = authentication.getName();
-			todos = todoSvc.getByIdAndCreatedBy(id, username);
+			Todo todos = todoSvc.getByIdAndCreatedBy(id, username);
 			if (todos != null) {
 				todoSvc.deleteByIdAndCreatedBy(id, username);
+				 return ResponseEntity.ok("Todo deleted successfully!!!");
 			} else {
 				throw new UnAuthorizedException("User is not authorized to access this todo item.");
 			}
 		} 
 		return null;
 	}
+	
 }
