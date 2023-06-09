@@ -143,11 +143,11 @@ public class TodoController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String role = authentication.getAuthorities().iterator().next().getAuthority();
 
-		Todo newTodo = todoSvc.TodoDTOtoTodo(todoDTO);
 
 		if (role.equals("ROLE_Admin")) {
 			Optional<Todo> todos = todoSvc.getById(id);
 			if(!todos.isEmpty()) {
+				Todo newTodo = todoSvc.TodoDTOtoTodo(todoDTO);
 				Todo todos1 = todoSvc.updateTodo(id, newTodo);
 				TodoDTO todoDTO1 = todoSvc.TodotoTodoDTO(todos1);
 				return new ResponseEntity<TodoDTO>(todoDTO1, HttpStatus.OK);
@@ -159,6 +159,7 @@ public class TodoController {
 			String username = authentication.getName();
 			Todo todos = todoSvc.getByIdAndCreatedBy(id, username);
 			if (todos != null) {
+				Todo newTodo = todoSvc.TodoDTOtoTodo(todoDTO);
 				Todo todos1 = todoSvc.updateTodo(id, newTodo);
 				TodoDTO todoDTO1 = todoSvc.TodotoTodoDTO(todos1);
 				return new ResponseEntity<TodoDTO>(todoDTO1, HttpStatus.OK);

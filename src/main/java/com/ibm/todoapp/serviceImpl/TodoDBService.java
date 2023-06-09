@@ -52,13 +52,14 @@ public class TodoDBService implements ITodoService {
 		if (existingTodo.isPresent()) {
 			Todo updateTodo = existingTodo.get();
 			updateTodo.setTitle(todo.getTitle());
+			updateTodo.setDescription(todo.getDescription());
 			// Set createdBy and createdDate value unchanged
 			String createdBy = updateTodo.getCreatedBy();
 			Date createdDate = updateTodo.getCreatedDate();
 			// Set the createdBy and createdDate value on the updatedTodo
 			todo.setCreatedBy(createdBy);
 			todo.setCreatedDate(createdDate);
-			return todoDbRepo.save(todo);
+			return todoDbRepo.save(updateTodo);
 		}
 		return null;
 
