@@ -26,10 +26,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ibm.todoapp.dto.ErrorResponse;
 import com.ibm.todoapp.dto.TodoDTO;
 import com.ibm.todoapp.exceptions.TodoNotFoundException;
 import com.ibm.todoapp.exceptions.UnAuthorizedException;
-import com.ibm.todoapp.models.ErrorResponse;
 import com.ibm.todoapp.models.Todo;
 import com.ibm.todoapp.services.ITodoService;
 
@@ -127,11 +127,11 @@ public class TodoController {
 
 	@PostMapping()
 	@PreAuthorize("hasAnyRole('User','Admin')")
-	public ResponseEntity<TodoDTO> createTodo(@Valid @RequestBody TodoDTO todoDTO) throws MethodArgumentNotValidException{ // modelbinding ? spring validation
-		Todo newTodo = todoSvc.TodoDTOtoTodo(todoDTO); // framework
-		Todo newTodo1 = todoSvc.addTodo(newTodo);
-		TodoDTO todoDTO2 = todoSvc.TodotoTodoDTO(newTodo1);
-		return new ResponseEntity<TodoDTO>(todoDTO2, HttpStatus.CREATED);
+	public ResponseEntity<TodoDTO> createTodo(@Valid @RequestBody TodoDTO todoDTO)  { // modelbinding ? spring validation
+			Todo newTodo = todoSvc.TodoDTOtoTodo(todoDTO); // framework
+			Todo newTodo1 = todoSvc.addTodo(newTodo);
+			TodoDTO todoDTO2 = todoSvc.TodotoTodoDTO(newTodo1);
+			return new ResponseEntity<TodoDTO>(todoDTO2, HttpStatus.CREATED);
 	}
 
 	@PutMapping("/{id}")

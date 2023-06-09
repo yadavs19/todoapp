@@ -1,4 +1,4 @@
-package com.ibm.todoapp.models;
+package com.ibm.todoapp.dto;
 
 import java.time.LocalDateTime;
 

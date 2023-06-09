@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ibm.todoapp.models.JwtRequest;
 import com.ibm.todoapp.models.JwtResponse;
-import com.ibm.todoapp.services.repository.JwtService;
+import com.ibm.todoapp.serviceImpl.JwtService;
 
 @RestController
 @CrossOrigin

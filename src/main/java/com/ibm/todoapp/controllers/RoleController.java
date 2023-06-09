@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ibm.todoapp.models.Role;
-import com.ibm.todoapp.services.repository.RoleService;
+import com.ibm.todoapp.serviceImpl.RoleService;
 
 @RestController
 public class RoleController {

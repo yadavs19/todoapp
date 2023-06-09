@@ -15,7 +15,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.ibm.todoapp.services.repository.JwtService;
+import com.ibm.todoapp.serviceImpl.JwtService;
 import com.ibm.todoapp.util.JwtUtil;
 
 import io.jsonwebtoken.ExpiredJwtException;

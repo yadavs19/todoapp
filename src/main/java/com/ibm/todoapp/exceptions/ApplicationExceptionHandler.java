@@ -1,4 +1,4 @@
-package com.ibm.todoapp.controllers;
+package com.ibm.todoapp.exceptions;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -12,13 +12,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.ibm.todoapp.exceptions.TodoNotFoundException;
-import com.ibm.todoapp.exceptions.UnAuthorizedException;
-import com.ibm.todoapp.exceptions.UserNotFoundException;
-import com.ibm.todoapp.models.ErrorResponse;
+import com.ibm.todoapp.dto.ErrorResponse;
 
 @RestControllerAdvice
-public class ApplicationExceptionController {
+public class ApplicationExceptionHandler {
 	
 	// MethodArgumentNotValidException
 	 @ExceptionHandler(MethodArgumentNotValidException.class)
