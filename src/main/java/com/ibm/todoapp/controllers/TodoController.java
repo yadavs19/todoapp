@@ -127,7 +127,7 @@ public class TodoController {
 
 	@PostMapping()
 	@PreAuthorize("hasAnyRole('User','Admin')")
-	public ResponseEntity<TodoDTO> createTodo(@Valid @RequestBody TodoDTO todoDTO) { // modelbinding ? spring validation
+	public ResponseEntity<TodoDTO> createTodo(@Valid @RequestBody TodoDTO todoDTO) throws MethodArgumentNotValidException{ // modelbinding ? spring validation
 		Todo newTodo = todoSvc.TodoDTOtoTodo(todoDTO); // framework
 		Todo newTodo1 = todoSvc.addTodo(newTodo);
 		TodoDTO todoDTO2 = todoSvc.TodotoTodoDTO(newTodo1);

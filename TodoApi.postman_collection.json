@@ -29,7 +29,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\":\"Azure\",\r\n    \"description\":\"learn from scratch\"\r\n}",
+							"raw": "{\r\n    \"title\":\"Guvi\",\r\n    \"description\":\"learn guvi\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -78,7 +78,7 @@
 								"type": "text"
 							}
 						],
-						"url": "http://localhost:8081/api/v1/todos/2"
+						"url": "http://localhost:8081/api/v1/todos/4"
 					},
 					"response": []
 				},
@@ -101,14 +101,14 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\":2,\r\n    \"title\":\"Java\",\r\n    \"description\":\"Scratch\"\r\n}",
+							"raw": "{\r\n    \"id\":5,\r\n    \"title\":\"Java\",\r\n    \"description\":\"Scratch\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "http://localhost:8081/api/v1/todos/2"
+						"url": "http://localhost:8081/api/v1/todos/5"
 					},
 					"response": []
 				},
@@ -129,7 +129,7 @@
 								"type": "text"
 							}
 						],
-						"url": "http://localhost:8081/api/v1/todos/2"
+						"url": "http://localhost:8081/api/v1/todos/5"
 					},
 					"response": []
 				},
@@ -144,7 +144,7 @@
 						},
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8081/api/v1/todos/title/java"
+						"url": "http://localhost:8081/api/v1/todos/title/python"
 					},
 					"response": []
 				}
@@ -184,7 +184,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"userName\":\"admin\",\r\n    \"userPassword\":\"admin@123\"\r\n}",
+							"raw": "{\r\n    \"userName\":\"user1\",\r\n    \"userPassword\":\"user@123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -213,7 +213,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\"userName\": \"user6\",\r\n\"userFirstName\":\"user\",\r\n\"userLastName\":\"6\",\r\n\"userPassword\":\"user@123\"\r\n}",
+							"raw": "{\r\n\"userName\": \"\",\r\n\"userFirstName\":\"user\",\r\n\"userLastName\":\"2\",\r\n\"userPassword\":\"user@123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -250,7 +250,7 @@
 						},
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8081/user/1"
+						"url": "http://localhost:8081/user/3"
 					},
 					"response": []
 				},
@@ -265,7 +265,7 @@
 						},
 						"method": "DELETE",
 						"header": [],
-						"url": "http://localhost:8081/user/3"
+						"url": "http://localhost:8081/user/5"
 					},
 					"response": []
 				},
@@ -289,7 +289,7 @@
 								}
 							}
 						},
-						"url": "http://localhost:8081/user/2"
+						"url": "http://localhost:8081/user/3"
 					},
 					"response": []
 				}

@@ -15,7 +15,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Component
 public class JwtUtil {
 
-    private static final String SECRET_KEY = "learn_programming_yourself";
+	private static final String SECRET_KEY = "learn_programming_yourself";
 
     private static final Integer TOKEN_VALIDITY = 5000 * 30;
 
