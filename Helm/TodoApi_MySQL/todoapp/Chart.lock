@@ -1,6 +1,6 @@
 dependencies:
 - name: mysql
-  repository: https://padmanabhansaravanan.github.io/Helm/DeployTodoApiMySql/mysql/charts
+  repository: https://vijaynvb.github.io/todoapi/Helm/TodoApi_MySQL/mysql/charts
   version: 0.1.0
-digest: sha256:3f3eb13876d73648093ee4aa6d49d4155b496cad717023d1144e445e23d57aa5
-generated: "2023-08-22T11:01:54.7288978+05:30"
+digest: sha256:2e5bc7d0656f54f2a41c969438bbd859f44cbfc393b442ac3537832058b314ea
+generated: "2023-08-22T16:14:33.1755151+05:30"
