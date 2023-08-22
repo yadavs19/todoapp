@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{ include "mysql.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{ include "mysql.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - name: {{ .Values.container.name }}
+        image: {{ .Values.image.repository }}
+        env:
+        - name: {{ .Values.env1.name }}
+          value: {{ .Values.env1.value }}
+        - name: {{ .Values.env2.name }}
+          value: {{ .Values.env2.value }}
+        ports:
+        - containerPort: {{ .Values.service.targetPort }}

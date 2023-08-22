@@ -1,0 +1,11 @@
+apiVersion: v2
+name: todo-api
+description: A Helm chart for deploy todo application
+type: application
+version: 0.1.0
+appVersion: "0.0.1"
+dependencies:
+  - name: mysql
+    version: 0.1.0
+    condition: database.enabled
+    repository: https://padmanabhansaravanan.github.io/Helm/DeployTodoApiMySql/mysql/charts

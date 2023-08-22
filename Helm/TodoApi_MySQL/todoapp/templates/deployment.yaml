@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{ include "todoapp.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{ include "todoapp.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - name: {{ .Values.container.name }}
+        image: {{ .Values.image.repository }}
+        env:
+        - name: {{ .Values.env.name }}
+          value: svcmysql.default.svc.cluster.local
+        ports:
+        - containerPort: {{ .Values.service.targetPort }}

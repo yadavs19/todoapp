@@ -1,0 +1,20 @@
+replicaCount: 1
+
+image:
+  repository: vijaynvb/todoapih2:1.0
+
+service:
+  type: NodePort
+  port: 80
+  name: svctodoh2api
+  targetPort: 80
+
+container:
+  name: todoapimysql
+
+env:
+  name: MYSQL_HOST
+
+database:
+  enabled: true
+  disabled: false

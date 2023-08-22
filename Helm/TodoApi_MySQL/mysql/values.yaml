@@ -1,0 +1,20 @@
+replicaCount: 1
+
+image:
+  repository: mysql
+
+service:
+  type: NodePort
+  port: 3306
+  targetPort: 3306
+
+container:
+  name: mysql
+
+env1:
+  name: MYSQL_DATABASE
+  value: tododb
+
+env2:
+  name: MYSQL_ROOT_PASSWORD
+  value: P@dhu123
