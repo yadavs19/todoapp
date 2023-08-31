@@ -17,4 +17,4 @@ env1:
 
 env2:
   name: MYSQL_ROOT_PASSWORD
-  value: P@dhu123
+  value: password
