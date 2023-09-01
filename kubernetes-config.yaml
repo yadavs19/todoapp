@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: todo-app-container
-          image: vijaynvb/myapi:3.0
+          image: vijaynvb/todosapi:5.0
           ports:
             - containerPort: 8081
 
