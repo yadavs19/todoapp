@@ -1,3 +1,4 @@
+{{- if .Values.global.useGlobalConfig }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -22,3 +23,4 @@ spec:
           value: {{ .Values.env2.value }}
         ports:
         - containerPort: {{ .Values.service.targetPort }}
+{{- end }}

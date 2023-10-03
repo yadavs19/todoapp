@@ -3,12 +3,12 @@ entries:
   mysql:
   - apiVersion: v2
     appVersion: 0.0.1
-    created: "2023-08-30T21:49:47.1295528+05:30"
+    created: "2023-10-03T11:33:23.0754588+05:30"
     description: A Helm chart for mysql database
-    digest: 7530c825c4f3d26e6287f50bc12872cc32cfa2bcde034f696ddea76a4aff2d02
+    digest: 0b34e7d480fe151da35c83cd4f9e5112bf9b9ab7555c85edba48f9dda0db61bf
     name: mysql
     type: application
     urls:
     - mysql-0.1.0.tgz
     version: 0.1.0
-generated: "2023-08-30T21:49:47.12756+05:30"
+generated: "2023-10-03T11:33:23.0749211+05:30"
