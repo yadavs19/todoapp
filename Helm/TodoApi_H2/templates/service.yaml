@@ -1,3 +1,4 @@
+{{- if .Values.global.useGlobalConfig }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -13,4 +14,4 @@ spec:
       name: http
   selector:
     {{ include "TodoApi_H2.selectorLabels" . | nindent 4 }}
- 
+ {{- end }}

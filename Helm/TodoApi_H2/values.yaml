@@ -11,8 +11,3 @@ service:
 
 container:
   name: todoapi-h2
-
-useGlobalConfig: true  # Controls whether to use global variables or not
-condition:
-  enabled: true
-  disabled: false
