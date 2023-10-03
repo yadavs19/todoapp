@@ -1,3 +1,4 @@
+{{- if .Values.global.useGlobalConfig }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -20,3 +21,4 @@ spec:
           value: svcmysql.default.svc.cluster.local
         ports:
         - containerPort: {{ .Values.service.targetPort }}
+{{- end }}
