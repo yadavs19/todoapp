@@ -1,0 +1,53 @@
+
+
+$ nano ~/.bashrc 
+    allias helm='midrok8s helm'
+$ source ~/.bashrc 
+
+$ helm create my-first-chart 
+$ ls
+$ cd my-first-chart/
+$ snap install tree
+$ tree .
+
+$ cd  templates/
+
+$ rm  -r *
+$ ls
+$ cd ..
+$ ls
+$ rm values.yaml 
+$ touch values.yaml
+$ ls
+$ cd templates/
+$ ls
+$ nano namespace.yaml
+$ nano configmap.yaml
+$ nano services.yaml
+$ mv services.yaml service_db.yaml
+$ nano service_app.yaml
+$ nano deployment_mysql.yaml
+$ nano deployment_app.yaml
+$ cd ..
+$ tree .
+$ nano values.yaml 
+    namespace: todoapp
+$ cd templates/
+$ nano namespace.yaml 
+    name: {{ .Values.namespace }}
+$ cd ..
+$ tree .
+
+$ helm list
+$ pwd 
+  /helm_k8s/
+  #parent of  my-first-chart
+$ helm template my-first-chart my-first-chart
+$ helm install my-first-chart my-first-chart
+$ helm list 
+$ kubectl get all -n todoapp
+$ helm uninstall my-second-chart
+$ helm install --set namespace=todoapp-dev my-second-chart my-first-chart 
+
+
+umbrela charts 
