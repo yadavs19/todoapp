@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: todo-app-container
-          image: sumeetkumarnaik/todoapp:latest
+          image: skrjit89/todoapijenkin:1.0
           ports:
             - containerPort: 8081
           env:
