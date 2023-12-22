@@ -40,6 +40,5 @@ userRemoteConfigs: [[url: 'https://github.com/yadavs19/todoapp.git']])
                     def kubeConfig = readFile 'kubernetes-config.yaml'
                     sh "kubectl apply -f kubernetes-config.yaml"
 } }
-} }
-} 
+} } 
 } }
