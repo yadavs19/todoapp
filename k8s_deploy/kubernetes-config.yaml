@@ -14,9 +14,31 @@ spec:
     spec:
       containers:
         - name: todo-app-container
-          image: vijaynvb/todoapijenkins:1.0
+          image: skrjit89/todoapijenkin:1.0
           ports:
             - containerPort: 8081
+          env:
+            - name: MYSQL_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: dbconfig
+                  key: MYSQL_HOST
+            - name: MYSQL_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: dbconfig
+                  key: MYSQL_USER
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: dbconfig
+                  key: MYSQL_PASSWORD
+            - name: MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: dbconfig
+                  key: MYSQL_DATABASE
+
 ---
 apiVersion: v1
 kind: Service
@@ -27,6 +49,17 @@ spec:
     app: todo-app
   ports:
     - protocol: TCP
-port: 8081
+      port: 8081
       targetPort: 8081
   type: NodePort
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dbconfig
+data:
+  MYSQL_HOST: svctododb.todoapp.svc.cluster.local 
+  MYSQL_USER: root 
+  MYSQL_PASSWORD: P@ssword
+  MYSQL_DATABASE: tododb
