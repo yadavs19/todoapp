@@ -25,7 +25,7 @@ userRemoteConfigs: [[url: 'https://github.com/yadavs19/todoapp.git']])
     stage('Push to Docker Hub') {
         steps {
             script {
-                withDockerRegistry(credentialsId: 'docker', url: 'https://index.docker.io/v1/') {
+                withDockerRegistry(credentialsId: 'docker_cred', url: 'https://index.docker.io/v1/') {
                     def imageTag = "skrjit89/todoapijenkin:1.0"
                     docker.image(imageTag).push()
                     echo 'successful Push to Docker Hub'
